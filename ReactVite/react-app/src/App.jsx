@@ -2,6 +2,12 @@ import './App.css'
 import Button from "./components/Button/Button.jsx";
 import JournalItem from "./components/JournalItem/JournalItem.jsx";
 import CardButton from "./components/CardButton/CardButton.jsx";
+import LeftPanel from "./layouts/LeftPanel/LeftPanel.jsx";
+import Body from "./layouts/Body/Body.jsx";
+import Header from "./components/Header/Header.jsx";
+import JournalList from "./components/JournalList/JournalList.jsx";
+import JournalAddButton from "./components/JournalAddButton/JournalAddButton.jsx";
+import {useState} from "react";
 
 function App() {
     const data = [
@@ -22,36 +28,48 @@ function App() {
         }
     ];
 
+    const [inputData, setInputData] = useState('');
+
+    const inputChange = (event) => {
+        setInputData(event.target.value)
+    };
+
   return (
-    <>
-        <h1>Заголовок</h1>
-        <p>Проект</p>
-        <Button />
-        <CardButton>
-            Новое воспоминание
-        </CardButton>
-        <CardButton>
-            <JournalItem
-                title={data[0].title}
-                text={data[0].text}
-                date={data[0].date}
-            />
-        </CardButton>
-        <CardButton>
-            <JournalItem
-                title={data[1].title}
-                text={data[1].text}
-                date={data[1].date}
-            />
-        </CardButton>
-        <CardButton>
-            <JournalItem
-                title={data[2].title}
-                text={data[2].text}
-                date={data[2].date}
-            />
-        </CardButton>
-    </>
+    <div className='app'>
+
+        <LeftPanel>
+            <Header />
+            <JournalList>
+                <JournalAddButton />
+                <CardButton>
+                    <JournalItem
+                        title={data[0].title}
+                        text={data[0].text}
+                        date={data[0].date}
+                    />
+                </CardButton>
+                <CardButton>
+                    <JournalItem
+                        title={data[1].title}
+                        text={data[1].text}
+                        date={data[1].date}
+                    />
+                </CardButton>
+                <CardButton>
+                    <JournalItem
+                        title={data[2].title}
+                        text={data[2].text}
+                        date={data[2].date}
+                    />
+                </CardButton>
+            </JournalList>
+        </LeftPanel>
+
+        <Body>
+            <input type="text" value={inputData} onChange={inputChange}/>
+        </Body>
+
+    </div>
   )
 }
 
